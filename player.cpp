@@ -1,17 +1,15 @@
 //
-// Created by gdoug on 11/9/2019.
+// Created by Kelly Wang on 11/9/2019.
 //
-
 #include "player.h"
-
-Player::Player() {
+#include <cstdlib>
+using namespace std;
+Player::Player(){
     myName="YourName";
 }
-
-void Player::addCard(Card c) {
+void Player::addCard(Card c){
     myHand.push_back(c);
 }
-
 void Player::bookCards(Card c1, Card c2){
     myBook.push_back(c1);
     myBook.push_back(c2);
@@ -30,16 +28,17 @@ bool Player::checkHandForBook(Card &c1, Card &c2) {
     }
     return false;
 }
-
-bool Player::rankInHand(Card c) const {
-    return false;
-}
-
 Card Player::chooseCardFromHand() const {
-    return Card();
+    int rIndex=rand() % myHand.size();
+    Card temp=myHand.at(rIndex);
+    return temp;
 }
-
 bool Player::cardInHand(Card c) const {
+    for(int i=0; i<myHand.size(); i++){
+        if (c==myHand.at(i)){
+            return true;
+        }
+    }
     return false;
 }
 
@@ -89,20 +88,6 @@ int Player::getBookSize() const {
     }
     return count;
 }
-
-bool Player::checkHandForPair(Card &c1, Card &c2) {
-    for (auto i =myHand.begin();i!=myHand.end();i++){
-        for (auto j = i+1; j!=myHand.end();j++){
-            if (((*i).getRank())==((*j).getRank())){
-                c1 = *i;
-                c2 = *j;
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 bool Player::sameRankInHand(Card c) const {
     for (auto i =myHand.begin();i!=myHand.end();i++){
         if ((*i).getRank()==c.getRank()){
@@ -111,3 +96,6 @@ bool Player::sameRankInHand(Card c) const {
     }
     return false;
 }
+
+
+
