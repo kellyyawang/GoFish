@@ -5,28 +5,33 @@
 #include "deck.h"
 
 Deck::Deck() {
-    int startIndex=1;
-    int stopIndex=14;
+    int startIndex=0;
+    int stopIndex=13;
     for (int i = 0; i<4; i++){
         int deckIndex = 1;
         for (int j = startIndex; j < stopIndex; j++){
             myCards[j]=Card(deckIndex,Card::Suit(i));
-            cout<<deckIndex<<". "<<myCards[deckIndex].toString()<<endl;
+//cout<<j<<"="<<myCards[j].toString()<<endl;
             deckIndex++;
         }
-        startIndex+=14;
-        stopIndex+=14;
+        startIndex+=13;
+        stopIndex+=13;
     }
 }
 
 void Deck::shuffle() {
     Card shuffled[SIZE];
     for(int j = 0; j<SIZE; j++) {
-        int randomNum = rand() % size();
-        shuffled[j]=myCards[randomNum];
-    }
-    for(int i = 0; i<size(); i++){
-        myCards[i]=shuffled[i];
+        int randomNum = rand() % SIZE;
+        while (myCards[randomNum]==Card(15,Card::Suit(0))) { //find valid card
+            randomNum = rand()%SIZE;
+        }
+            shuffled[j]=myCards[randomNum]; //put a random card into the shuffled deck
+            myCards[randomNum]=Card(15,Card::Suit(0)); //set to invalid card so it wont be chosen again
+        }
+    for(int i = 0; i<SIZE; i++){
+        myCards[i]=shuffled[i]; //bring all the shuffled cards into original deck
+//cout<<i<<"="<<myCards[i].toString()<<endl;
     }
 }
 
