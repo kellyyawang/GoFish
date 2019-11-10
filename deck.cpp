@@ -7,6 +7,7 @@
 Deck::Deck() {
     int startIndex=0;
     int stopIndex=13;
+    myIndex=0;
     for (int i = 0; i<4; i++){
         int deckIndex = 1;
         for (int j = startIndex; j < stopIndex; j++){
@@ -16,6 +17,7 @@ Deck::Deck() {
         }
         startIndex+=13;
         stopIndex+=13;
+
     }
 }
 
@@ -31,7 +33,7 @@ void Deck::shuffle() {
         }
     for(int i = 0; i<SIZE; i++){
         myCards[i]=shuffled[i]; //bring all the shuffled cards into original deck
-//cout<<i<<"="<<myCards[i].toString()<<endl;
+        //cout<<i<<"="<<myCards[i].toString()<<endl;
     }
 }
 
