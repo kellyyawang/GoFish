@@ -1,6 +1,7 @@
 //
 // Created by Kelly Wang on 11/9/2019.
 //
+#include <sstream>
 #include "card.h"
 Card::Card(){           // constructor for ace of spades
     myRank=1;
@@ -26,7 +27,7 @@ bool Card::sameSuitAs(const Card& c) const{
 
 }
 string Card::suitString(Suit s)const{
-    string suitString=0;
+    string suitString="";
     switch(s){
         case hearts:
             suitString="h";
@@ -44,7 +45,8 @@ string Card::suitString(Suit s)const{
     return suitString;
 }
 string Card::rankString(int r)const{
-    string rankString=0;
+    string rankString="";
+    stringstream itostr;
     switch(r){
         case 1: rankString="A"; break;
         case 11: rankString="J"; break;
@@ -52,7 +54,8 @@ string Card::rankString(int r)const{
         case 13: rankString="K"; break;
     }
     if (r>1 && r<11){
-        rankString=r;
+        itostr << r;
+        rankString=itostr.str();
     }
     return rankString;
 
