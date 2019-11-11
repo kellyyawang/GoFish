@@ -37,7 +37,10 @@ int main() {
     Card neededCard;
     p1turn:
     while (totalBookSize <= 26) {
-
+        if  (p1.getHandSize()==0 || p2.getHandSize()==0){
+            break;
+        }
+        cout<<"handsz: "<< p1.getHandSize()<<endl;
         totalBookSize = p2.getBookSize() + p1.getBookSize();
         cout<<totalBookSize<<endl;
 
@@ -50,9 +53,8 @@ int main() {
             foundCard = p2.removeCardFromHand(neededCard);
             cout<<"Found card: "<<foundCard<<endl;
             p1.addCard(foundCard);
-            cout<<p1.showHand()<<endl;
-            cout<<p2.showHand()<<endl;
-
+            cout << "Gwyni's hand: " << p1.showHand() << endl;
+            cout << "Kelly's hand: " << p2.showHand()<<endl;
             bookHelper(foundCard, neededCard, p1);
             goto p1turn;
         }
@@ -70,6 +72,11 @@ int main() {
             goto p2turn;
         }
         p2turn:
+        if  (p1.getHandSize()==0 || p2.getHandSize()==0){
+            break;
+        }
+        cout<<"handsz: "<< p2.getHandSize()<<endl;
+        cout<<"hi";
         totalBookSize = p2.getBookSize() + p1.getBookSize();
         cout <<totalBookSize<<endl;
         neededCard = p2.chooseCardFromHand();
@@ -78,8 +85,8 @@ int main() {
             cout << "Gwyni: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
             foundCard = p1.removeCardFromHand(neededCard);
             p2.addCard(foundCard);
-            cout<<p1.showHand()<<endl;
-            cout<<p2.showHand()<<endl;
+            cout << "Gwyni's hand: " << p1.showHand() << endl;
+            cout << "Kelly's hand: " << p2.showHand()<<endl;
 
             bookHelper(foundCard, neededCard, p2);
             goto p2turn;
@@ -98,3 +105,9 @@ int main() {
             goto p1turn;
         }
     }
+    cout<< "\np1 Books: " <<p1.showBooks()<<endl;
+    cout<<p1.getBookSize()<<endl;
+    cout<< "\np2 Books: "<< p2.showBooks()<<endl;
+    cout<<p2.getBookSize()<<endl;
+
+}
