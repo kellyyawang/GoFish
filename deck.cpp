@@ -1,9 +1,8 @@
 //
-// Created by gdoug on 11/9/2019.
+// Created by Kelly Wang on 11/9/2019.
 //
-
 #include "deck.h"
-
+#include <cstdlib>
 Deck::Deck() {
     int startIndex=0;
     int stopIndex=13;
@@ -28,9 +27,9 @@ void Deck::shuffle() {
         while (myCards[randomNum]==Card(15,Card::Suit(0))) { //find valid card
             randomNum = rand()%SIZE;
         }
-            shuffled[j]=myCards[randomNum]; //put a random card into the shuffled deck
-            myCards[randomNum]=Card(15,Card::Suit(0)); //set to invalid card so it wont be chosen again
-        }
+        shuffled[j]=myCards[randomNum]; //put a random card into the shuffled deck
+        myCards[randomNum]=Card(15,Card::Suit(0)); //set to invalid card so it wont be chosen again
+    }
     for(int i = 0; i<SIZE; i++){
         myCards[i]=shuffled[i]; //bring all the shuffled cards into original deck
         //cout<<i<<"="<<myCards[i].toString()<<endl;
@@ -53,4 +52,3 @@ int Deck::size() const {
     }
     return size;
 }
-

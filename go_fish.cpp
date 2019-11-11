@@ -13,7 +13,7 @@ void bookHelper(Card &card1, Card &card2, Player &p1){
         p1.removeCardFromHand(card1);
         p1.removeCardFromHand(card2);
         string pName=p1.getName();
-        cout << pName <<" Books " ;
+        cout << pName <<"'s Books " ;
         cout<<p1.showBooks()<<endl;
     }
 }
@@ -40,29 +40,31 @@ int main() {
     while (totalBookSize <= 26) {
         if(p1.getHandSize() ==0 && d.size()>0){
             p1.addCard(d.dealCard());
+            cout<<"Gwyni draws a card" <<endl;
+            cout << "Gwyni's hand: " << p1.showHand() << endl;
         }
         if(p1.getHandSize()==0 && d.size() ==0){
             break;
         }
         totalBookSize = p2.getBookSize() + p1.getBookSize();
-        cout<<"total books:";
-        cout<<totalBookSize<<endl;
+
 
         neededCard = p1.chooseCardFromHand();
         cout << "Gwyni: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
-        cout<<"Needed card: "<<neededCard<<endl;
+
 
         if (p2.sameRankInHand(neededCard)) {
             cout << "Kelly: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
             foundCard = p2.removeCardFromHand(neededCard);
-            cout<<"Found card: "<<foundCard<<endl;
+
             p1.addCard(foundCard);
+            cout<< "Gwyni Books "<< neededCard.toString() << " and " <<foundCard.toString() << endl;
+
+            bookHelper(foundCard, neededCard, p1);
             cout << "Gwyni's Hand:" ;
             cout<<p1.showHand()<<endl;
             cout << "Kelly's Hand:" ;
             cout<<p2.showHand()<<endl;
-
-            bookHelper(foundCard, neededCard, p1);
             goto p1turn;
         }
         else {
@@ -86,25 +88,27 @@ int main() {
         p2turn:
         if(p2.getHandSize() ==0 && d.size()>0){
             p2.addCard(d.dealCard());
+            cout<<"Kelly draws a card" <<endl;
+            cout << "Kelly's hand: " << p2.showHand() <<endl;
         }
         if(p2.getHandSize()==0 && d.size() ==0){
             break;
         }
         totalBookSize = p2.getBookSize() + p1.getBookSize();
-        cout<<"total books:";
-        cout <<totalBookSize<<endl;
         neededCard = p2.chooseCardFromHand();
         cout << "Kelly: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
         if (p1.sameRankInHand(neededCard)) {
             cout << "Gwyni: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
+
             foundCard = p1.removeCardFromHand(neededCard);
             p2.addCard(foundCard);
+            cout<< "Kelly Books "<< neededCard.toString() << " and " <<foundCard.toString() << endl;
+
+            bookHelper(foundCard, neededCard, p2);
             cout << "Gwyni's Hand:" ;
             cout<<p1.showHand()<<endl;
             cout << "Kelly's Hand:" ;
             cout<<p2.showHand()<<endl;
-
-            bookHelper(foundCard, neededCard, p2);
             goto p2turn;
         }
         else {
