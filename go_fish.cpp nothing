@@ -9,7 +9,7 @@
 using namespace std;
 
 void bookHelper(Card &card1, Card &card2, Player &p1){
-    while(p1.checkHandForBook(card1,card2)){
+    if(p1.checkHandForBook(card1,card2)){
         p1.bookCards(card1,card2);
         p1.removeCardFromHand(card1);
         p1.removeCardFromHand(card2);
@@ -44,10 +44,13 @@ int main() {
         neededCard = p1.chooseCardFromHand();
         cout << "Gwyni: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
 
-        if (p1.sameRankInHand(neededCard)) {
+        if (p2.sameRankInHand(neededCard)) {
             cout << "Kelly: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
             foundCard = p2.removeCardFromHand(neededCard);
             p1.addCard(foundCard);
+            cout<<p1.showHand()<<endl;
+            cout<<p2.showHand()<<endl;
+
             bookHelper(foundCard, neededCard, p1);
             goto p1turn;
         } else {
@@ -60,12 +63,15 @@ int main() {
         p2turn:
         totalBookSize = p2.getBookSize() + p1.getBookSize();
         neededCard = p2.chooseCardFromHand();
-        cout << "Gwyni: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
-        if (p2.sameRankInHand(neededCard)) {
-            cout << "Kelly: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
+        cout << "Kelly: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
+        if (p1.sameRankInHand(neededCard)) {
+            cout << "Gwyni: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
             foundCard = p1.removeCardFromHand(neededCard);
             p2.addCard(foundCard);
-            bookHelper(card1, card2, p2);
+            cout<<p1.showHand()<<endl;
+            cout<<p2.showHand()<<endl;
+
+            bookHelper(foundCard, neededCard, p2);
             goto p2turn;
         } else {
             Card newCard = d.dealCard();
