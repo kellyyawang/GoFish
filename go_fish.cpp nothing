@@ -36,17 +36,19 @@ int main() {
 
     Card neededCard;
     p1turn:
-    while (totalBookSize < 26) {
+    while (totalBookSize <= 26) {
 
         totalBookSize = p2.getBookSize() + p1.getBookSize();
         cout<<totalBookSize<<endl;
 
         neededCard = p1.chooseCardFromHand();
         cout << "Gwyni: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
+        cout<<"Needed card: "<<neededCard<<endl;
 
         if (p2.sameRankInHand(neededCard)) {
             cout << "Kelly: Yeah! I have the " << neededCard.rankString(neededCard.getRank()) << endl;
             foundCard = p2.removeCardFromHand(neededCard);
+            cout<<"Found card: "<<foundCard<<endl;
             p1.addCard(foundCard);
             cout<<p1.showHand()<<endl;
             cout<<p2.showHand()<<endl;
@@ -58,7 +60,7 @@ int main() {
             cout << "Kelly: Go FISH..." << endl;
             if (d.size()>0){
                 Card newCard = d.dealCard();
-                p2.addCard(newCard);
+                p1.addCard(newCard);
                 cout << "Gwyni drew a " << newCard.toString() << endl;
             }
             else{
@@ -69,6 +71,7 @@ int main() {
         }
         p2turn:
         totalBookSize = p2.getBookSize() + p1.getBookSize();
+        cout <<totalBookSize<<endl;
         neededCard = p2.chooseCardFromHand();
         cout << "Kelly: Do you have any " << neededCard.rankString(neededCard.getRank()) << "'s?" << endl;
         if (p1.sameRankInHand(neededCard)) {
@@ -85,14 +88,13 @@ int main() {
             cout << "Gwyni: Go FISH..." << endl;
             if (d.size()>0){
                 Card newCard = d.dealCard();
-                p1.addCard(newCard);
+                p2.addCard(newCard);
                 cout << "Kelly drew a " << newCard.toString() << endl;
             }
             else{
                 goto p1turn;
             }
-            bookHelper(card1, card2, p1);
+            bookHelper(card1, card2, p2);
             goto p1turn;
         }
     }
-}
