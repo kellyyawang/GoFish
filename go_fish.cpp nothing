@@ -53,10 +53,17 @@ int main() {
 
             bookHelper(foundCard, neededCard, p1);
             goto p1turn;
-        } else {
-            Card newCard = d.dealCard();
-            p1.addCard(newCard);
-            cout << "Kelly: Go FISH..." << endl << "Gwyni drew a " << newCard.toString() << endl;
+        }
+        else {
+            cout << "Kelly: Go FISH..." << endl;
+            if (d.size()>0){
+                Card newCard = d.dealCard();
+                p2.addCard(newCard);
+                cout << "Gwyni drew a " << newCard.toString() << endl;
+            }
+            else{
+                goto p2turn;
+            }
             bookHelper(card1, card2, p1);
             goto p2turn;
         }
@@ -73,11 +80,18 @@ int main() {
 
             bookHelper(foundCard, neededCard, p2);
             goto p2turn;
-        } else {
-            Card newCard = d.dealCard();
-            p2.addCard(newCard);
-            cout << "Kelly: Go FISH..." << endl << "Gwyni drew a " << newCard.toString() << endl;
-            bookHelper(card1, card2, p2);
+        }
+        else {
+            cout << "Gwyni: Go FISH..." << endl;
+            if (d.size()>0){
+                Card newCard = d.dealCard();
+                p1.addCard(newCard);
+                cout << "Kelly drew a " << newCard.toString() << endl;
+            }
+            else{
+                goto p1turn;
+            }
+            bookHelper(card1, card2, p1);
             goto p1turn;
         }
     }
