@@ -1,5 +1,5 @@
 
-#include <iostream>    
+#include <iostream>
 #include <cstdlib>
 #include "card.h"
 #include "player.h"
@@ -38,7 +38,10 @@ int main() {
     Card neededCard;
     p1turn:
     while (totalBookSize <= 26) {
-        if(p1.getHandSize()==0){
+        if(p1.getHandSize() ==0 && d.size()>0){
+            p1.addCard(d.dealCard());
+        }
+        if(p1.getHandSize()==0 && d.size() ==0){
             break;
         }
         totalBookSize = p2.getBookSize() + p1.getBookSize();
@@ -81,7 +84,10 @@ int main() {
             goto p2turn;
         }
         p2turn:
-        if(p2.getHandSize()==0){
+        if(p2.getHandSize() ==0 && d.size()>0){
+            p2.addCard(d.dealCard());
+        }
+        if(p2.getHandSize()==0 && d.size() ==0){
             break;
         }
         totalBookSize = p2.getBookSize() + p1.getBookSize();
@@ -128,7 +134,10 @@ int main() {
     if(p1.getBookSize() > p2.getBookSize()){
         cout<< "Gwyni Won!";
     }
-    else{
-        cout<< "Kelly Won!";
-    }
+    if(p1.getBookSize() < p2.getBookSize()){
+        cout<< "Kelly Won!";}
+    if(p1.getBookSize() == p2.getBookSize()){
+        cout<< "It's a tie! Kelly and Gwyni have the same number of books";}
+
+
 }
